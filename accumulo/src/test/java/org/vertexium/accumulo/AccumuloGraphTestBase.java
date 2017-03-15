@@ -41,8 +41,12 @@ public abstract class AccumuloGraphTestBase extends GraphTestBase {
     @ClassRule
     public static ZookeeperResource zookeeperResource = new ZookeeperResource();
 
+    AccumuloGraphTestBase() {
+        edgeBoostSupported = false;
+    }
+
     @Before
-    @Override
+    // TODO: Before every method here and in the base test suite
     public void before() throws Exception {
         ensureAccumuloIsStarted();
         Connector connector = createConnector();
@@ -69,7 +73,7 @@ public abstract class AccumuloGraphTestBase extends GraphTestBase {
             curator.delete().deletingChildrenIfNeeded().forPath(path);
         }
 
-        super.before();
+       // super.before();
     }
 
     @Override
@@ -84,16 +88,6 @@ public abstract class AccumuloGraphTestBase extends GraphTestBase {
     @Override
     protected Authorizations createAuthorizations(String... auths) {
         return new AccumuloAuthorizations(auths);
-    }
-
-    @After
-    public void after() throws Exception {
-        super.after();
-    }
-
-    @Override
-    protected boolean isEdgeBoostSupported() {
-        return false;
     }
 
     @SuppressWarnings("ResultOfMethodCallIgnored")
@@ -471,8 +465,7 @@ public abstract class AccumuloGraphTestBase extends GraphTestBase {
         assertEquals(null, dataTableSplits.get(1).getExclusiveEnd());
     }
 
-    @Override
     public AccumuloGraph getGraph() {
-        return (AccumuloGraph) super.getGraph();
+        return (AccumuloGraph) graph;
     }
 }

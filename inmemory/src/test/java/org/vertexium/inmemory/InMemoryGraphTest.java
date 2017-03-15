@@ -31,30 +31,13 @@ public class InMemoryGraphTest extends GraphTestBase {
         return config;
     }
 
-    @Override
-    public InMemoryGraph getGraph() {
-        return (InMemoryGraph) super.getGraph();
+    public InMemoryGraphTest() {
+        edgeBoostSupported = false;
     }
 
     @Override
     protected Authorizations createAuthorizations(String... auths) {
         return new InMemoryAuthorizations(auths);
-    }
-
-    @Before
-    @Override
-    public void before() throws Exception {
-        super.before();
-    }
-
-    @After
-    public void after() throws Exception {
-        super.after();
-    }
-
-    @Override
-    protected boolean isEdgeBoostSupported() {
-        return false;
     }
 
     @Test
